@@ -10,6 +10,22 @@ bool is_prime(ll a) {
         return ok;
     }
 }
+
 //最大公約数と最小公倍数
 ll gcd(ll a, ll b) {return(b?gcd(b,a%b):a)}
 ll lcm(ll a, ll b) {return(a/gcd(a,b)*b)}
+
+//素因数分解
+vector<pair<ll,int>> factorize(ll n) {
+    vector<pair<ll,int>> res;
+    for (ll i = 2; i * i <= n; i++) {
+        if (n % i != 0) continue;
+        res.emplace_back(i,0);
+        while (n % i == 0) {
+            n /= i;
+            res.back().second++;
+        } 
+    }
+    if (n != 1) res.emplace_back(n,1);
+    return res;
+}
