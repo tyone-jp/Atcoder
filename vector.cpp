@@ -6,3 +6,6 @@ iter_swap(v.begin(),v.begin()+i)
 
 //一意のベクトルに変換
 unique(v.begin(),v.end())
+
+//逆順のソート(rはリバース)
+sort(v.rbegin(),v.rend())
