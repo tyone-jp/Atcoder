@@ -51,3 +51,55 @@ struct union_find {
         return true;
     }
 };
+
+// dijkstra
+int n;
+vint d(105);
+vvint cost(105,vint(105,inf));
+
+void dijkstra(int s) {
+    priority_queue<P, vector<P>, greater<P>> q;
+    rep(i,n) d[i] = inf;
+    d[s] = 0;
+    q.push(P(0,s));
+    while (!q.empty()) {
+        P e = q.top(); q.pop();
+        int v = e.second;
+        if (d[v] < e.first) continue;
+        rep(i,n) {
+            if (cost[v][i] == inf) continue;
+            if (chmin(d[i],d[v]+cost[v][i])) {
+                q.push(P(d[i],i));
+            }
+        }
+    }
+}
+
+// union-find
+int par[n];
+int rank[n];
+
+void init (int n) {
+    rep(i,n) {
+        par[i] = i;
+        rank[i] = 0;
+    }
+}
+
+int find(int x) {
+    if (per[x] == x) return x;
+    else return par[x] = find(par[x]);
+}
+
+void unite(int x, int y) {
+    x = find(x);
+    y = find(y);
+    if (x == y) return;
+    if (rank[x] < rank[y]) par[x] = y;
+    else {
+        par[y] = x;
+        if (rank[x] == rank[y]) rank[x]++;
+    }
+}
+
+bool same(int x, int y) return find(x) == find(y);
