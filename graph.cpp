@@ -76,18 +76,18 @@ void dijkstra(int s) {
 }
 
 // union-find
-int par[n];
-int rank[n];
+vint par;
+vint depth;
 
 void init (int n) {
     rep(i,n) {
         par[i] = i;
-        rank[i] = 0;
+        depth[i] = 0;
     }
 }
 
 int find(int x) {
-    if (per[x] == x) return x;
+    if (par[x] == x) return x;
     else return par[x] = find(par[x]);
 }
 
@@ -95,11 +95,35 @@ void unite(int x, int y) {
     x = find(x);
     y = find(y);
     if (x == y) return;
-    if (rank[x] < rank[y]) par[x] = y;
+    if (depth[x] < depth[y]) par[x] = y;
     else {
         par[y] = x;
-        if (rank[x] == rank[y]) rank[x]++;
+        if (depth[x] == depth[y]) depth[x]++;
     }
 }
 
-bool same(int x, int y) return find(x) == find(y);
+bool same(int x, int y) {return find(x) == find(y);}
+
+// kruscal
+struct edge {int u, v, cost;};
+
+bool comp(const edge &e1, const edge &e2) {
+    return e1.cost < e2.cost;
+}
+
+edge es[max_E];
+int V, E;
+
+int kruskal() {
+    sort(es,es+E,comp);
+    init(V);
+    int res = 0;
+    rep(i,E) {
+        edge e = es[i];
+        if (!same(e.u,e.v)) {
+            unite(e.u,e.v);
+            res += e.cost;
+        }
+    }
+    return res;
+}
