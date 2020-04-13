@@ -4,7 +4,7 @@ bool is_prime(ll a) {
     if (a == 1) return false;
     if (a == 2) return true;
     else {
-        rep(i,sqrt(a)) {
+        for (int i = 2; i * i <= a; i++) {
             if (a % (i+2) == 0) ok = false;
         }
         return ok;
