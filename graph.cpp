@@ -76,54 +76,38 @@ void dijkstra(int s) {
 }
 
 // union-find
-vint par;
-vint depth;
+struct union_find {
+    vector<int> data;
 
-void init (int n) {
-    rep(i,n) {
-        par[i] = i;
-        depth[i] = 0;
+    union_find(int size) {data.resize(size,-1);}
+
+    int find(int x) {
+        if (data[x] < 0) {return x;}
+        return {data[x] = find(data[x]);}
     }
-}
 
-int find(int x) {
-    if (par[x] == x) return x;
-    else return par[x] = find(par[x]);
-}
-
-void unite(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if (x == y) return;
-    if (depth[x] < depth[y]) par[x] = y;
-    else {
-        par[y] = x;
-        if (depth[x] == depth[y]) depth[x]++;
+    bool unite(int x, int y) {
+        x = find(x); y = find(y);
+        if (x == y) {return false;}
+        if (data[x] > data[y]) swap(x,y);
+        data[x] += data[y];
+        data[y] = x;
     }
-}
 
-bool same(int x, int y) {return find(x) == find(y);}
+    int size(int x) {return -data[x];}
+};
 
-// kruscal
-struct edge {int u, v, cost;};
+// kruscal(O(ElogV))
+template<class T> 
+struct edge {int from, to; T cost;};
 
-bool comp(const edge &e1, const edge &e2) {
-    return e1.cost < e2.cost;
-}
-
-edge es[max_E];
-int V, E;
-
-int kruskal() {
-    sort(es,es+E,comp);
-    init(V);
-    int res = 0;
-    rep(i,E) {
-        edge e = es[i];
-        if (!same(e.u,e.v)) {
-            unite(e.u,e.v);
-            res += e.cost;
-        }
-    }
+template<class T>
+T kruskal(vector<edge<T>> &edges, int V) {
+    sort(edges.begin(),edges.end(),[](const edge<T> &edge1, const edge<T> &edge2) {
+        return edge1.cost < edge2.cost;
+    });
+    union_find uf(V);
+    T res = 0;
+    for (edge<T> &e: edges) if (uf.unite(e.from,e.to)) res += e.cost;
     return res;
 }
