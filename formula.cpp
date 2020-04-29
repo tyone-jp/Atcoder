@@ -5,7 +5,7 @@ bool is_prime(ll a) {
     if (a == 2) return true;
     else {
         for (int i = 2; i * i <= a; i++) {
-            if (a % (i+2) == 0) ok = false;
+            if (a % i == 0) ok = false;
         }
         return ok;
     }
@@ -29,7 +29,7 @@ ll ext_gcd(ll a, ll b, ll &x, ll &y) {
 //素因数分解
 vector<pair<ll,int>> factorize(ll n) {
     vector<pair<ll,int>> res;
-    int N = n;
+    ll N = n;
     for (ll i = 2; i * i <= N; i++) {
         if (n % i != 0) continue;
         res.emplace_back(i,0);
