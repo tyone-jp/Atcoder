@@ -95,7 +95,7 @@ struct union_find {
         return true;
     }
 
-    int size(int x) {return -data[x];}
+    int size(int x) {return -data[find(x)];}
 };
 
 // kruscal(O(ElogV))
