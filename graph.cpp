@@ -15,28 +15,59 @@ bool dfs(const Graph &g, int v, int cur = 0) {
     return true;
 }
 
-// dijkstra
-int n;
-vint d(105);
-vvint cost(105,vint(105,inf));
-
-void dijkstra(int s) {
-    priority_queue<P, vector<P>, greater<P>> q;
-    rep(i,n) d[i] = inf;
-    d[s] = 0;
-    q.push(P(0,s));
-    while (!q.empty()) {
-        P e = q.top(); q.pop();
-        int v = e.second;
-        if (d[v] < e.first) continue;
-        rep(i,n) {
-            if (cost[v][i] == inf) continue;
-            if (chmin(d[i],d[v]+cost[v][i])) {
-                q.push(P(d[i],i));
+// warshall_floyd
+void warshall_floyd(vvint &d, int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k++) {
+                if (d[j][i] == inf || d[i][k] == inf) continue;
+                d[j][k] = min(d[j][k],d[j][i]+d[i][k]);
             }
         }
     }
 }
+
+// dijkstra
+struct edge{int to, cost;};
+
+struct dijkstra {
+    int V;
+    vint d;
+    vector<vector<edge>> G;
+
+    dijkstra(int n) {init(n);} 
+
+    void init(int n) {
+        V = n;
+        G.resize(V);
+        d.resize(V);
+        rep(i,V) d[i] = inf;
+    }
+
+    void add_edge(int s, int t, int cost) {
+        s--; t--;
+        edge e;
+        e.to = t; e.cost = cost;
+        G[s].push_back(e);
+    }
+
+    void run(int s) {
+        s--;
+        priority_queue<P, vector<P>, greater<P>> q;
+        d[s] = 0;
+        q.push(P(0,s));
+        while (!q.empty()) {
+            P e = q.top(); q.pop();
+            int v = e.second;
+            if (d[v] < e.first) continue;
+            for (auto e: G[v]) {
+                if (chmin(d[e.to],d[v]+e.cost)) {
+                    q.push(P(d[e.to],e.to));
+                }
+            }
+        }
+    }
+};
 
 // union-find
 struct union_find {
