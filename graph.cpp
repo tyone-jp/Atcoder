@@ -28,9 +28,8 @@ void warshall_floyd(vvint &d, int n) {
 }
 
 // dijkstra
-struct edge{int to, cost;};
-
 struct dijkstra {
+    struct edge{int to, cost;};
     int V;
     vint d;
     vector<vector<edge>> G;
