@@ -71,7 +71,7 @@ for (int i = 2; i <= mx; i++) {
     }
 }
 
-// nCr
+// nCr(modは素数)
 struct com {
     ll MAX;
     ll mod;
@@ -82,9 +82,9 @@ struct com {
     }
     void COMinit(ll n) {
         MAX = n;
-        fac.resize(MAX);
-        finv.resize(MAX);
-        inv.resize(MAX);
+        fac.resize(MAX+1);
+        finv.resize(MAX+1);
+        inv.resize(MAX+1);
         fac[0] = fac[1] = 1;
         finv[0] = finv[1] = 1;
         inv[1] = 1;
@@ -101,3 +101,16 @@ struct com {
         return fac[n] * (finv[k] * finv[n-k] % mod) % mod;
     } 
 };
+
+// nCr(v[n][r])(パスカルバージョン)
+void comb(vvll &v) {
+    rep(i,v.size()) {
+        v[i][0] = 1;
+        v[i][i] = 1;
+    }
+    for (int k = 1; k < v.size(); k++) {
+        for (int j = 1; j < k; j++) {
+            v[k][j] = v[k-1][j-1] + v[k-1][j];
+        }
+    }
+}
