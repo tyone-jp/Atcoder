@@ -42,19 +42,6 @@ vector<pair<ll,int>> factorize(ll n) {
     return res;
 }
 
-//modpow
-template <class T>
-T modpow(T base, T exp, T modulus) {
-  base %= modulus;
-  T result = 1;
-  while (exp > 0) {
-    if (exp & 1) result = (result * base) % modulus;
-    base = (base * base) % modulus; // llにしないとダメ
-    exp >>= 1;
-  }
-  return result;
-}
-
 //階乗
 ll factorial(int x) {
     if (x == 1) return 1;
@@ -70,37 +57,6 @@ for (int i = 2; i <= mx; i++) {
         for (int j = 2*i; j <= mx; j += i) prime[j] = false;
     }
 }
-
-// nCr(modは素数)
-struct com {
-    ll MAX;
-    ll mod;
-    vll fac, finv, inv;
-    com(ll n, ll MOD) {
-        mod = MOD; 
-        COMinit(n);
-    }
-    void COMinit(ll n) {
-        MAX = n;
-        fac.resize(MAX+1);
-        finv.resize(MAX+1);
-        inv.resize(MAX+1);
-        fac[0] = fac[1] = 1;
-        finv[0] = finv[1] = 1;
-        inv[1] = 1;
-        for (int i = 2; i <= MAX; i++) {
-            fac[i] = fac[i-1] * i % mod;
-            inv[i] = mod - inv[mod%i] * (mod/i) % mod;
-            finv[i] = finv[i-1] * inv[i] % mod;
-        }
-    }   
-
-    ll cal(int n, int k) {
-        if (n < k) return 0;
-        if (n < 0 || k < 0) return 0;
-        return fac[n] * (finv[k] * finv[n-k] % mod) % mod;
-    } 
-};
 
 // nCr(v[n][r])(パスカルバージョン)
 void comb(vvll &v) {
