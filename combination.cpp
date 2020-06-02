@@ -11,7 +11,7 @@ struct mint {
         if ((x += mod-a.x) >= mod) x -= mod;
         return *this;
     }
-    mint& operator *=(const mint a) {(x *= a.x) % mod; return *this;}
+    mint& operator *=(const mint a) {(x *= a.x) %= mod; return *this;}
     mint operator +(const mint a) const {return mint(*this) += a;}
     mint operator -(const mint a) const {return mint(*this) -= a;}
     mint operator *(const mint a) const {return mint(*this) *= a;}
@@ -30,8 +30,8 @@ istream& operator >>(istream &is, const mint &a) {return is >> a.x;}
 ostream& operator <<(ostream &os, const mint &a) {return os << a.x;}
 
 struct combination {
-    vector<mint> fact, iact;
-    combination(int n) : fact(n+1), iact(n+1) {
+    vector<mint> fact, ifact;
+    combination(int n) : fact(n+1), ifact(n+1) {
         assert(n < mod);
         fact[0] = 1;
         for (int i = 1; i <= n; i++) fact[i] = fact[i-1]*i;
@@ -42,4 +42,4 @@ struct combination {
         if (k < 0 || k > n) return 0;
         return fact[n]*ifact[k]*ifact[n-k];
     }
-}
+};

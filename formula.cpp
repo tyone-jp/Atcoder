@@ -1,16 +1,3 @@
-//素数の判定
-bool is_prime(ll a) {
-    bool ok = true;
-    if (a == 1) return false;
-    if (a == 2) return true;
-    else {
-        for (int i = 2; i * i <= a; i++) {
-            if (a % i == 0) ok = false;
-        }
-        return ok;
-    }
-}
-
 //最大公約数と最小公倍数
 ll gcd(ll a, ll b) {return(b?gcd(b,a%b):a);}
 ll lcm(ll a, ll b) {return(a/gcd(a,b)*b);}
@@ -26,36 +13,10 @@ ll ext_gcd(ll a, ll b, ll &x, ll &y) {
     return d;
 }
 
-//素因数分解
-vector<pair<ll,int>> factorize(ll n) {
-    vector<pair<ll,int>> res;
-    ll N = n;
-    for (ll i = 2; i * i <= N; i++) {
-        if (n % i != 0) continue;
-        res.emplace_back(i,0);
-        while (n % i == 0) {
-            n /= i;
-            res.back().second++;
-        } 
-    }
-    if (n != 1) res.emplace_back(n,1);
-    return res;
-}
-
 //階乗
 ll factorial(int x) {
     if (x == 1) return 1;
     return x * factorial(x-1);
-}
-
-//エラストテネスの篩
-int mx = 1e5;
-vector<bool> prime(mx+1,true);
-prime[1] = false;
-for (int i = 2; i <= mx; i++) {
-    if (prime[i]) {
-        for (int j = 2*i; j <= mx; j += i) prime[j] = false;
-    }
 }
 
 // nCr(v[n][r])(パスカルバージョン)
@@ -67,6 +28,19 @@ void comb(vvll &v) {
     for (int k = 1; k < v.size(); k++) {
         for (int j = 1; j < k; j++) {
             v[k][j] = v[k-1][j-1] + v[k-1][j];
+        }
+    }
+}
+
+//重複組み合わせの列挙
+vector<int> buf;
+void dfs(int i, const int size, const int range_start, const int range_end) {
+    if (i == size) {
+        //処理
+    } else {
+        for (int j = range_start; j <= range_end; j++) {
+            buf[i] = j;
+            dfs(i+1,size,range_start,range_end);
         }
     }
 }

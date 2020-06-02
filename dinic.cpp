@@ -44,11 +44,11 @@ struct max_flow {
     }
     
     int run(int s, int t) {
-        int ret = 0, f;
+        int res = 0, f;
         while (bfs(s), level[t] >= 0) {
             itr.assign(V,0);
-            while ((f = dfs(s,t,inf)) > 0) ret += f;
+            while ((f = dfs(s,t,inf)) > 0) res += f;
         }
-        return ret;
+        return res;
     }
 };

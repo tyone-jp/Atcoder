@@ -27,47 +27,6 @@ void warshall_floyd(vvint &d, int n) {
     }
 }
 
-// dijkstra
-struct dijkstra {
-    struct edge{int to, cost;};
-    int V;
-    vint d;
-    vector<vector<edge>> G;
-
-    dijkstra(int n) {init(n);} 
-
-    void init(int n) {
-        V = n;
-        G.resize(V);
-        d.resize(V);
-        rep(i,V) d[i] = inf;
-    }
-
-    void add_edge(int s, int t, int cost) {
-        s--; t--;
-        edge e;
-        e.to = t; e.cost = cost;
-        G[s].push_back(e);
-    }
-
-    void run(int s) {
-        s--;
-        priority_queue<P, vector<P>, greater<P>> q;
-        d[s] = 0;
-        q.push(P(0,s));
-        while (!q.empty()) {
-            P e = q.top(); q.pop();
-            int v = e.second;
-            if (d[v] < e.first) continue;
-            for (auto e: G[v]) {
-                if (chmin(d[e.to],d[v]+e.cost)) {
-                    q.push(P(d[e.to],e.to));
-                }
-            }
-        }
-    }
-};
-
 // kruscal(O(ElogV))
 template<class T> 
 struct edge {int from, to; T cost;};
