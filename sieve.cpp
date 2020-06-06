@@ -23,17 +23,19 @@ struct sieve {
         }
         return res;
     }
+    // xが小さいときはエラストテネスの篩を用いて素因数分解
     vector<P> factor(int x) {
         vector<int> fl = factor_list(x);
         if (fl.size() == 0) return {};
         vector<P> res(1,P(fl[0],0));
         for (int p : fl) {
             if (res.back().first == p) {
-                res.back().second++
+                res.back().second++;
             } else {
                 res.emplace_back(p,1);
             }
         }
+        return res;
     }
     vector<pair<ll,int>> factor(ll x) {
         vector<pair<ll,int>> res;
