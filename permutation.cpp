@@ -29,9 +29,9 @@ struct mint {
 istream& operator >>(istream &is, const mint &a) {return is >> a.x;}
 ostream& operator <<(ostream &os, const mint &a) {return os << a.x;}
 
-struct permutaiton {
+struct permutation {
     vector<mint> fact, ifact;
-    combination(int n) : fact(n+1), ifact(n+1) {
+    permutation(int n) : fact(n+1), ifact(n+1) {
         assert(n < mod);
         fact[0] = 1;
         for (int i = 1; i <= n; i++) fact[i] = fact[i-1]*i;

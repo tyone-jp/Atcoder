@@ -15,18 +15,6 @@ bool dfs(const Graph &g, int v, int cur = 0) {
     return true;
 }
 
-// warshall_floyd
-void warshall_floyd(vvint &d, int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            for (int k = 0; k < n; k++) {
-                if (d[j][i] == inf || d[i][k] == inf) continue;
-                d[j][k] = min(d[j][k],d[j][i]+d[i][k]);
-            }
-        }
-    }
-}
-
 // kruscal(O(ElogV))
 template<class T> 
 struct edge {int from, to; T cost;};

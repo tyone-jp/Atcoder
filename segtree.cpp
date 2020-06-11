@@ -34,11 +34,12 @@ struct segment_tree {
         }
     }
 
-    T get(int a) {return data[a+n-1];}
+    T operator[](int a) {return data[a+n-1];}
 
+    //[a,b)を出力
     void debug(int a, int b) {
         a += n-1; b += n-1;
-        for (int i = a; i <= b; i++) {
+        for (int i = a; i < b; i++) {
             cout << data[i] << " ";
         }
         cout << endl;
