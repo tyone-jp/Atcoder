@@ -1,4 +1,4 @@
-//dinic法(O(n^2m))
+//dinic法(O(n^2m)最大流)
 struct max_flow {
     struct edge {int to, cap, rev;};
     int V;

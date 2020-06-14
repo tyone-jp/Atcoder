@@ -16,3 +16,7 @@ using P = pair<int,int>;
 const int inf = 1e9;
 const ll inf_l = 1e18;
 const int MAX = 1e5;
+
+int main() {
+    
+}
