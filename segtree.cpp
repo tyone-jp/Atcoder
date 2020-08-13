@@ -37,7 +37,7 @@ struct segment_tree {
     T operator[](int a) {return data[a+n-1];}
 
     //[a,b)を出力
-    void debug(int a, int b) {
+    void debug_seg(int a, int b) {
         a += n-1; b += n-1;
         for (int i = a; i < b; i++) {
             cout << data[i] << " ";

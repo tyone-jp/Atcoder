@@ -19,19 +19,6 @@ ll factorial(int x) {
     return x * factorial(x-1);
 }
 
-// nCr(v[n][r])(パスカルバージョン)
-void comb(vvll &v) {
-    rep(i,v.size()) {
-        v[i][0] = 1;
-        v[i][i] = 1;
-    }
-    for (int k = 1; k < v.size(); k++) {
-        for (int j = 1; j < k; j++) {
-            v[k][j] = v[k-1][j-1] + v[k-1][j];
-        }
-    }
-}
-
 //重複組み合わせの列挙
 vector<int> buf;
 void dfs(int i, const int size, const int range_start, const int range_end) {
@@ -43,4 +30,11 @@ void dfs(int i, const int size, const int range_start, const int range_end) {
             dfs(i+1,size,range_start,range_end);
         }
     }
+}
+
+//回文判定
+bool palindrome(string s) {
+    string tmp = s;
+    reverse(all(tmp));
+    return s == tmp;
 }
