@@ -1,16 +1,17 @@
-// dijkstra
+// dijkstra(O((E+V)log(v)))
 template<class T>
 struct dijkstra {
     struct edge{int to, cost;};
     vector<T> d;
     vector<vector<edge>> G;
+    T init_v;
 
-    dijkstra(int n) {init(n);} 
+    dijkstra(int n, T init_v) init_v(init_v) {init(n);} 
 
     void init(int n) {
         G.resize(n);
         d.resize(n);
-        rep(i,n) d[i] = inf_l;
+        rep(i,n) d[i] = inf;
     }
 
     void add_edge(int s, int t, int cost) {

@@ -1,7 +1,7 @@
 template<class T>
 struct segment_tree {
     using F = function<T(T,T)>;
-    int n;
+    int n;     
     vector<T> data;
     F f;
     T init_v;
@@ -31,6 +31,30 @@ struct segment_tree {
             T vl = query(a,b,k*2+1,l,(l+r)/2);
             T vr = query(a,b,2*k+2,(l+r)/2,r);
             return f(vl,vr);
+        }
+    }
+
+    //[a,b)でcheck(v,x)を満たす最右のid
+    int find_rightest(int a, int b, T x, F check, int k = 0, int l = 0, int r = -1) {
+        if (r < 0) r = n;
+        if (!check(data[k],x) || r <= a || b <= l) return -1;
+        else if (k >= n - 1) return (k-(n-1));
+        else {
+            int vr = find_rightest(a,b,x,check,2*k+2,(l+r)/2,r);
+            if (vr != -1) return vr;
+            else return find_rightest(a,b,x,check,2*k+1,l,(l+r)/2);
+        }
+    }
+
+    //[a,b)でcheck(v,x)を満たす最左のid
+    int find_leftest(int a, int b, T x, F check, int k = 0, int l = 0, int r = -1) {
+        if (r < 0) r = n;
+        if (!check(data[k],x) || r <= a || b <= l) return b;
+        else if (k >= n - 1) return (k-(n-1));
+        else {
+            int vl = find_leftest(a,b,x,check,2*k+1,l,(l+r)/2);
+            if (vl != b) return vl;
+            else return find_leftest(a,b,x,check,2*k+2,(l+r)/2,r);
         }
     }
 

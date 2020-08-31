@@ -26,4 +26,18 @@ struct BIT {
     T sum(int l, int r) {
         return sum(r-1) - sum(l-1);
     }
+
+    // min{x|a_1+a_2+...+a_x >= w}
+    int lower_bound(int w) {
+        if (w <= 0) return 0;
+        int x = 0, r = 1;
+        while (r < n) r <<= 1;
+        for (int len = r; len > 0; len = len >> 1) {
+            if (x + len < n && bit[x+len] < w) {
+                w -= bit[x+len];
+                x += len;
+            }
+        }
+        return x + 1;
+    }
 };
