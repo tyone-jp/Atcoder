@@ -6,12 +6,12 @@ struct dijkstra {
     vector<vector<edge>> G;
     T init_v;
 
-    dijkstra(int n, T init_v) init_v(init_v) {init(n);} 
+    dijkstra(int n, T init_v) : init_v(init_v) {init(n);} 
 
     void init(int n) {
         G.resize(n);
         d.resize(n);
-        rep(i,n) d[i] = inf;
+        rep(i,n) d[i] = init_v;
     }
 
     void add_edge(int s, int t, int cost) {

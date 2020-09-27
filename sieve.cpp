@@ -1,4 +1,4 @@
-//エラストテネスの篩
+//エラストテネスの篩(O(nloglogn))
 struct sieve {
     int n;
     vector<int> f, primes;

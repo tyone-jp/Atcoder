@@ -16,8 +16,8 @@ using ll = long long;
 using vll = vector<ll>;
 using vvll = vector<vector<ll>>;
 using P = pair<int,int>;
-const int inf = 1e9+10;
-const ll inf_l = 1e18;
+const int inf = 1<<30;
+const ll inf_l = 1LL<<61;
 const int MAX = 1e5;
 
 int main() {
