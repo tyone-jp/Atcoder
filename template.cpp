@@ -21,5 +21,5 @@ const ll inf_l = 1LL<<61;
 const int MAX = 1e5;
 
 int main() {
-
+    
 }
