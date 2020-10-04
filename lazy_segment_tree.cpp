@@ -29,6 +29,7 @@ struct lazy_segment_tree {
     }
 
     void eval(int k) {
+        // == を定義しないとバグる
         if (lazy[k] == em) return ;
         if (k < n - 1) {        // 子に伝播
             lazy[k * 2 + 1] = composition(lazy[k * 2 + 1], lazy[k]);
