@@ -13,11 +13,11 @@ struct bellman_ford {
     T init_v;
     bool negative_loop;
 
-    bellman_ford(int n, T init) : G(n), G_rev(n), dis(n,init), 
+    bellman_ford(int n, T init) : G(n), G_rev(n), dis(n, init), 
         V(n), init_v(init) {}
     void add_edge(int a, int b, T cost) {
-        G[a].push_back(edge{b,cost});
-        G_rev[b].push_back(edge{a,cost});
+        G[a].push_back(edge{b, cost});
+        G_rev[b].push_back(edge{a, cost});
     }
     void run(int s) {
         bool update = false;
@@ -39,8 +39,8 @@ struct bellman_ford {
     T path(int s, int t) {
         if (!negative_loop) return dis[t];
         else {
-            auto can_reach_from_start = can_reach(G,s);
-            auto can_reach_from_goal = can_reach(G_rev,t);
+            auto can_reach_from_start = can_reach(G, s);
+            auto can_reach_from_goal = can_reach(G_rev, t);
             for (int i = 0; i < V; i++) {
                 if (can_reach_from_start[i] && can_reach_from_goal[i]) {
                     if (dis_middle[i] != dis[i]) {
@@ -52,7 +52,7 @@ struct bellman_ford {
         }
     }
     vector<bool> can_reach(const vector<vector<edge>> &G, int s) {
-        vector<bool> res(V,false);
+        vector<bool> res(V, false);
         queue<int> q;
         q.push(s);
         res[s] = true;

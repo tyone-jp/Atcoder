@@ -1,4 +1,4 @@
-// dijkstra(O((E+V)log(v)))
+// dijkstra(O((E+V)log(V)))
 template<class T>
 struct dijkstra {
     struct edge{int to, cost;};
