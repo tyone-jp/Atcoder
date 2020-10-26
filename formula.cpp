@@ -31,10 +31,3 @@ void dfs(int i, const int size, const int range_start, const int range_end) {
         }
     }
 }
-
-//回文判定
-bool palindrome(string s) {
-    string tmp = s;
-    reverse(all(tmp));
-    return s == tmp;
-}
