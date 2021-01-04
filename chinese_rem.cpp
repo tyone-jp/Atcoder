@@ -12,6 +12,7 @@ ll ext_gcd(ll a, ll b, ll &x, ll &y) {
     return d;
 }
 
+//r0(mod m0)を返す
 pair<ll, ll> chinese_rem(const vector<ll> &r, const vector<ll> &m) {
     ll r0 = 0, m0 = 1;
     for (int i = 0; i < (int)r.size(); i++) {

@@ -1,6 +1,6 @@
 //最大公約数と最小公倍数
-ll gcd(ll a, ll b) {return(b?gcd(b,a%b):a);}
-ll lcm(ll a, ll b) {return(a/gcd(a,b)*b);}
+ll gcd(ll a, ll b) {return(b ? gcd(b, a % b) : a);}
+ll lcm(ll a, ll b) {return(a / gcd(a, b) * b);}
 
 //拡張ユークリッド(返り値はgcd(a,b))
 ll ext_gcd(ll a, ll b, ll &x, ll &y) {
@@ -8,9 +8,16 @@ ll ext_gcd(ll a, ll b, ll &x, ll &y) {
         x = 1; y = 0;
         return a;
     }
-    ll d = ext_gcd(b, a%b, y, x); //xにyの値を入れている
-    y -= a/b * x;
+    ll d = ext_gcd(b, a % b, y, x); //xにyの値を入れている
+    y -= a / b * x;
     return d;
+}
+
+// a * x = 1(mod m)
+ll mod_inverse(ll a, ll m) {
+    ll x, y;
+    ext_gcd(a, m, x, y);
+    return (m + x % m) % m;
 }
 
 //階乗
